@@ -1,0 +1,6 @@
+WHICH_CONFIG_FILE: storage.yaml
+# Application storage bucket
+CLOUD_STORAGE_BUCKET: 'proven-impact-212716.appspot.com'
+DOWNLOAD_BUCKET: 'mj-wls-dev-lidb'
+STORAGE_CRED: 'download.json'
+

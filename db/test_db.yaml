@@ -1,0 +1,9 @@
+
+WHICH_CONFIG_FILE: test_db.yaml
+# Database 
+CLOUDSQL_LOCAL: explorer_admin:hou1Gqbi6uYPsX88eRay@tcp(35.232.121.17:3306)/mjsystems?tls=custom
+# CLOUDSQL: 'wls-admin:I1NM6aB$9YreiY^@unix(/cloudsql/wls-mj-well-log-search:us-central1:wls)/mjsystems'
+
+TLS_SERVER_CA: 'C:\\Users\\camer\\.ssh\\proven-impact-server-ca.pem'
+TLS_CLIENT_KEY: 'C:\\Users\\camer\\.ssh\\proven-impact-client-key.pem'
+TLS_CLIENT_CERT: 'C:\\Users\\camer\\.ssh\\proven-impact-client-cert.pem'

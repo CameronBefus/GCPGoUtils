@@ -1,0 +1,10 @@
+
+WHICH_CONFIG_FILE: test_db.yaml
+# Database 
+# CLOUDSQL_LOCAL: explorer_admin:hou1Gqbi6uYPsX88eRay@tcp(35.232.121.17:3306)/mjsystems?tls=custom
+# CLOUDSQL: 'wls-admin:I1NM6aB$9YreiY^@unix(/cloudsql/wls-mj-well-log-search:us-central1:wls)/mjsystems'
+
+
+CLOUDSQL_LOCAL: user=wls_admin password=I1NM6aB$9YreiY^ host=34.66.5.178 port=5432 dbname=mjsystems sslmode=require
+TLS_CLIENT_KEY: 'C:\\Users\\camer\\.ssh\\wls-p1-client-key.pem'
+TLS_CLIENT_CERT: 'C:\\Users\\camer\\.ssh\\wls-p1-client-cert.pem'

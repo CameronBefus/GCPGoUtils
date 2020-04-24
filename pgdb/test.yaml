@@ -1,0 +1,10 @@
+WHICH_CONFIG_FILE: CONFIG_DEV.YAML
+CLOUDSQL_CONNECTION_NAME: proven-impact-212716:us-central1:mjlogs
+CLOUDSQL_USER: explorer_admin
+CLOUDSQL_PASSWORD: hou1Gqbi6uYPsX88eRay1
+CLOUDSQL_SOCKET_PREFIX: '/cloudsql'
+CLOUDSQL_SERVER: 35.232.121.17:3306
+TLS_SERVER_CA: 'C:\\Users\\camer\\.ssh\\proven-impact-server-ca.pem'
+TLS_CLIENT_KEY: 'C:\\Users\\camer\\.ssh\\proven-impact-client-key.pem'
+TLS_CLIENT_CERT: 'C:\\Users\\camer\\.ssh\\proven-impact-client-cert.pem'
+
