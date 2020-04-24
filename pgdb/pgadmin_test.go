@@ -1,7 +1,7 @@
 package pgdb
 
 import (
-	"bitbucket.org/mjlogs/utilprg/utilities/util"
+	"bitbucket.org/mjlogs/utilities/util"
 	"testing"
 
 	log "github.com/sirupsen/logrus"

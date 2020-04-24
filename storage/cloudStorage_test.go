@@ -1,7 +1,7 @@
 package storage
 
 import (
-	"bitbucket.org/mjlogs/utilprg/utilities/util"
+	"bitbucket.org/mjlogs/utilities/util"
 	"bufio"
 	"cloud.google.com/go/storage"
 	"encoding/csv"
