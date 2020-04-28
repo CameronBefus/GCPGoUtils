@@ -1,7 +1,7 @@
 package email
 
 import (
-	"github.com/CameronBefus/GCPGoUtils/secrets"
+	"github.com/cambefus/gcp_go_utils/secrets"
 	"testing"
 )
 

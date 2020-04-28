@@ -1,4 +1,4 @@
-module github.com/CameronBefus/GCPGoUtils
+module github.com/cambefus/gcp_go_utils
 
 go 1.13
 
