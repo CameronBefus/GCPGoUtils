@@ -7,7 +7,7 @@ import (
 
 func Test_All(t *testing.T) {
 	s, _ := secrets.InitializeFromEnvironment(`utilities_config`)
-	cs := s.GetString(`CLOUDSQL_LOCAL`)
+	cs := s.GetString(`CLOUDSQL`)
 	tk := s.GetString(`TLS_CLIENT_KEY`)
 	tc := s.GetString(`TLS_CLIENT_CERT`)
 	p, e := NewExternalDBPool(cs, tk, tc)
