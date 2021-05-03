@@ -3,6 +3,8 @@ package util
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
+	log "github.com/sirupsen/logrus"
 	"os"
 	"strconv"
 )
@@ -62,4 +64,13 @@ func FileExists(filename string) bool {
 		return false
 	}
 	return !info.IsDir()
+}
+
+type CustomLogFormat struct{}
+
+func (lf *CustomLogFormat) Format(entry *log.Entry) ([]byte, error) {
+	if entry.Level.String() == "info" {
+		return []byte(fmt.Sprintf("%s \n", entry.Message)), nil
+	}
+	return []byte(fmt.Sprintf("%s: %s \n", entry.Level, entry.Message)), nil
 }
