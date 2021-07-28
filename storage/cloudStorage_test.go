@@ -66,6 +66,22 @@ func deleteTestFiles(t *testing.T, fnames []string) {
 
 // end helper routines
 
+func Test_NewCStoreP(t *testing.T) {
+	// this function should never work in a test environment, as it will not have permissions
+	csp, err := NewCStoreP("Sample")
+	if err != nil {
+		t.Error("NewCStoreP: ", err)
+	}
+	fl, e := csp.GetFiles("")
+	if e == nil {
+		t.Error("this should have failed, path does not exist")
+	}
+	if len(fl) != 0 {
+		t.Error("GCP Storage: should not have found files")
+	}
+	_ = csp.client.Close()
+}
+
 func Test_FileExists(t *testing.T) {
 	setup(t)
 	f := writeTestFiles(t)
