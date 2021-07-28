@@ -30,7 +30,7 @@ func NewCStore(cred []byte, bucketName string) (*CStore, error) {
 		return nil, errors.New(`invalid parameter(s)`)
 	}
 	var err error
-	this.client, err = getStorageClient(cred)
+	this.client, err = storage.NewClient(context.Background(), option.WithCredentialsJSON(cred))
 	if err == nil && this.client != nil {
 		this.bucket = this.client.Bucket(bucketName)
 	}
@@ -38,12 +38,18 @@ func NewCStore(cred []byte, bucketName string) (*CStore, error) {
 	return this, err
 }
 
-func getStorageClient(cred []byte) (*storage.Client, error) {
-	sc, e1 := storage.NewClient(context.Background(), option.WithCredentialsJSON(cred))
-	if e1 != nil {
-		return nil, e1
+// NewCStoreP - creates an object suitable for accessing a predefined Bucket in GCP Cloud Storage, assumes permissions exist, no credentials required
+func NewCStoreP(bucketName string) (*CStore, error) {
+	this := new(CStore)
+	if len(bucketName) == 0 {
+		return nil, errors.New(`invalid parameter(s)`)
 	}
-	return sc, e1
+	var err error
+	this.client, err = storage.NewClient(context.Background())
+	if err == nil && this.client != nil {
+		this.bucket = this.client.Bucket(bucketName)
+	}
+	return this, err
 }
 
 // GetFiles - return list of files within specified bucket / path
@@ -124,7 +130,7 @@ func (cs *CStore) GetFileInfo(path string) ([]storage.ObjectAttrs, error) {
 	return result, nil
 }
 
-// GetFilesWithSuffixB - returns list of files from the the specified path where the file name ends with suffix
+// GetFilesWithSuffix - returns list of files from the the specified path where the file name ends with suffix
 func (cs *CStore) GetFilesWithSuffix(path string, suffix string) ([]string, error) {
 	var result []string
 	var q = storage.Query{Prefix: path}
@@ -144,7 +150,7 @@ func (cs *CStore) GetFilesWithSuffix(path string, suffix string) ([]string, erro
 	return result, nil
 }
 
-// GetFileReaderB - remember to close the Reader after use. returns error if file not found
+// GetFileReader - remember to close the Reader after use. returns error if file not found
 // second parameter is file size in bytes, if found
 func (cs *CStore) GetFileReader(fn string) (*storage.Reader, int64, error) {
 	it := cs.bucket.Object(fn)
@@ -179,7 +185,7 @@ func (cs *CStore) FileExists(fn string) bool {
 	return err == nil
 }
 
-// WriteFileB creates a text file in Google Cloud Storage.
+// WriteFile creates a text file in Google Cloud Storage.
 func (cs *CStore) WriteFile(fn string, content string) error {
 	return cs.WriteCloudFile(fn, []byte(content), "text/plain")
 }
