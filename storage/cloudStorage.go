@@ -23,6 +23,8 @@ type CStore struct {
 	credentials []byte
 }
 
+var defaultClient *storage.Client
+
 // NewCStore - creates an object suitable for accessing a predefined Bucket in GCP Cloud Storage
 func NewCStore(cred []byte, bucketName string) (*CStore, error) {
 	this := new(CStore)
@@ -32,6 +34,9 @@ func NewCStore(cred []byte, bucketName string) (*CStore, error) {
 	var err error
 	this.client, err = storage.NewClient(context.Background(), option.WithCredentialsJSON(cred))
 	if err == nil && this.client != nil {
+		if defaultClient == nil {
+			defaultClient = this.client
+		}
 		this.bucket = this.client.Bucket(bucketName)
 	}
 	this.credentials = cred
@@ -39,17 +44,22 @@ func NewCStore(cred []byte, bucketName string) (*CStore, error) {
 }
 
 // NewCStoreP - creates an object suitable for accessing a predefined Bucket in GCP Cloud Storage, assumes permissions exist, no credentials required
+// note - it will reuse the default client for any subsequent calls.
 func NewCStoreP(bucketName string) (*CStore, error) {
 	this := new(CStore)
 	if len(bucketName) == 0 {
 		return nil, errors.New(`invalid parameter(s)`)
 	}
-	var err error
-	this.client, err = storage.NewClient(context.Background())
-	if err == nil && this.client != nil {
-		this.bucket = this.client.Bucket(bucketName)
+	if defaultClient == nil {
+		var err error
+		defaultClient, err = storage.NewClient(context.Background())
+		if err != nil {
+			return nil, err
+		}
 	}
-	return this, err
+	this.client = defaultClient
+	this.bucket = this.client.Bucket(bucketName)
+	return this, nil
 }
 
 // GetFiles - return list of files within specified bucket / path

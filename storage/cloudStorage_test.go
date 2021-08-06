@@ -79,7 +79,11 @@ func Test_NewCStoreP(t *testing.T) {
 	if len(fl) != 0 {
 		t.Error("GCP Storage: should not have found files")
 	}
-	_ = csp.client.Close()
+
+	csp2, _ := NewCStoreP("Sample2")
+	if !(csp2.client == csp.client) {
+		t.Error("Storage client should have been reused")
+	}
 }
 
 func Test_FileExists(t *testing.T) {
